@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://c5v5blmy0umo8"]
+
+[ext_resource type="Script" path="res://Scripts/merchant.gd" id="1_165mv"]
+[ext_resource type="Texture2D" uid="uid://ba1rfe37rmiru" path="res://Assets/Boats/sailboat.png" id="1_p27jc"]
+[ext_resource type="Texture2D" uid="uid://ymuymuwopklf" path="res://Assets/Images/Baloons/ChatGPT Image 26_03_2025, 20_10_30.png" id="3_jt4g1"]
+[ext_resource type="Texture2D" uid="uid://b4rxaw8iae0bw" path="res://Assets/Images/Baloons/ChatGPT Image 26_03_2025, 20_01_44.png" id="4_jxdlw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0des"]
+atlas = ExtResource("1_p27jc")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_swkyw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0des")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sa74e"]
+size = Vector2(49, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xtvpi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_jt4g1")
+}],
+"loop": true,
+"name": &"pressE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_jxdlw")
+}],
+"loop": true,
+"name": &"shopIcon",
+"speed": 5.0
+}]
+
+[node name="Merchant" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_165mv")
+
+[node name="merchantBoat" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.3, 1.3)
+sprite_frames = SubResource("SpriteFrames_swkyw")
+animation = &"Idle"
+
+[node name="colision" type="CollisionShape2D" parent="."]
+position = Vector2(3, 17)
+rotation = -0.47822
+shape = SubResource("RectangleShape2D_sa74e")
+
+[node name="baloon" type="AnimatedSprite2D" parent="."]
+position = Vector2(44, -33)
+scale = Vector2(0.0625, 0.0625)
+sprite_frames = SubResource("SpriteFrames_xtvpi")
+animation = &"shopIcon"

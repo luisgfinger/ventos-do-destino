@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://crcr3irlsyr5a"]
+
+[ext_resource type="Script" path="res://Scripts/loja.gd" id="1_r7fhk"]
+
+[node name="Loja" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_r7fhk")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 415.0
+offset_top = 131.0
+offset_right = 721.0
+offset_bottom = 452.0
+
+[node name="Loja do mercador" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 7.0
+offset_right = 217.0
+offset_bottom = 30.0
+text = "Loja do mercador"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 107.0
+offset_right = 184.0
+offset_bottom = 165.0
+
+[node name="Item" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Canhão"
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Comprar
+"
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 276.0
+offset_right = 185.0
+offset_bottom = 307.0
+text = "Fechar"
