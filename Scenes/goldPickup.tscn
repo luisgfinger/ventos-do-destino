@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://dxusyde31p4yy"]
+
+[ext_resource type="Script" path="res://Scripts/area_2d.gd" id="1_hnnbk"]
+[ext_resource type="Texture2D" uid="uid://d0p1d1nkvx7aj" path="res://Assets/Boats/waterLeft_recolored.png" id="2_4t01s"]
+[ext_resource type="Texture2D" uid="uid://jkj54w46yo8q" path="res://Assets/Images/bau.png" id="2_jxpnc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44fxy"]
+atlas = ExtResource("2_4t01s")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vq1gw"]
+atlas = ExtResource("2_4t01s")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofpsy"]
+atlas = ExtResource("2_4t01s")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymocv"]
+atlas = ExtResource("2_4t01s")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_18ccc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44fxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vq1gw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofpsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymocv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irb7p"]
+size = Vector2(34, 29.5)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_hnnbk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -27)
+rotation = 1.60919
+scale = Vector2(1.91793, 2.07581)
+sprite_frames = SubResource("SpriteFrames_18ccc")
+autoplay = "default"
+frame_progress = 0.712235
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("2_jxpnc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.25)
+shape = SubResource("RectangleShape2D_irb7p")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

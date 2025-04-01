@@ -1,13 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://jxngo7uyba2u"]
+[gd_scene load_steps=10 format=3 uid="uid://jxngo7uyba2u"]
 
 [ext_resource type="Texture2D" uid="uid://bi5sqag4l1pon" path="res://Assets/Images/island.png" id="1_f8783"]
-[ext_resource type="PackedScene" uid="uid://cghihrfegux3t" path="res://Scenes/playerScene.tscn" id="1_ip8br"]
 [ext_resource type="PackedScene" uid="uid://c5v5blmy0umo8" path="res://Scenes/merchant.tscn" id="3_ynl44"]
 [ext_resource type="Script" path="res://Scripts/gold_manager.gd" id="4_vr73s"]
-[ext_resource type="Script" path="res://Scripts/cannon_manager.gd" id="5_nmepo"]
 [ext_resource type="PackedScene" uid="uid://dxusyde31p4yy" path="res://Scenes/goldPickup.tscn" id="5_vlqqp"]
-[ext_resource type="Texture2D" uid="uid://clildyrs37iud" path="res://Assets/Images/Gold.png" id="6_sibns"]
-[ext_resource type="Texture2D" uid="uid://dxt63tcwxgtgk" path="res://Assets/Images/cannonNoBackground.png" id="7_uo0jj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x4x4d"]
 texture = ExtResource("1_f8783")
@@ -8352,11 +8348,7 @@ physics_layer_0/collision_layer = 2
 sources/0 = SubResource("TileSetAtlasSource_rbwv3")
 
 [sub_resource type="Theme" id="Theme_p7nff"]
-Label/colors/font_color = Color(0.956863, 0.772549, 0.258824, 1)
-Label/font_sizes/font_size = 32
-
-[sub_resource type="Theme" id="Theme_f1qsh"]
-Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_color = Color(0.721569, 0.52549, 0.0431373, 1)
 Label/font_sizes/font_size = 32
 
 [node name="Main" type="Node2D"]
@@ -8377,42 +8369,18 @@ position = Vector2(916, 252)
 scale = Vector2(1.3, 1.3)
 distancia_maxima = 130.0
 
-[node name="Player" parent="." instance=ExtResource("1_ip8br")]
-position = Vector2(437, 377)
-
 [node name="GoldManager" type="Node" parent="."]
 script = ExtResource("4_vr73s")
 
-[node name="CannonManager" type="Node" parent="."]
-script = ExtResource("5_nmepo")
-
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="UI"]
-position = Vector2(73, 33)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("6_sibns")
-
 [node name="GoldLabel" type="Label" parent="UI"]
-offset_left = 97.0
-offset_top = 10.0
-offset_right = 155.0
-offset_bottom = 55.0
-theme = SubResource("Theme_p7nff")
-text = "300"
-
-[node name="Sprite2D2" type="Sprite2D" parent="UI"]
-position = Vector2(209, 34)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("7_uo0jj")
-
-[node name="CannonLabel" type="Label" parent="UI"]
-offset_left = 235.0
+offset_left = 36.0
 offset_top = 11.0
-offset_right = 275.0
+offset_right = 180.0
 offset_bottom = 56.0
-theme = SubResource("Theme_f1qsh")
-text = "x1"
+theme = SubResource("Theme_p7nff")
+text = "Gold: 300"
 
 [node name="Area2D" parent="." instance=ExtResource("5_vlqqp")]
 position = Vector2(630, 334)

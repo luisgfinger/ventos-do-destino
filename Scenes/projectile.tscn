@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlwhnq0l74sb1"]
+
+[ext_resource type="Script" path="res://Scripts/ball.gd" id="1_fgwpy"]
+[ext_resource type="Texture2D" uid="uid://4fmu2hpc5xgs" path="res://Assets/Images/20250331_2017_Pixelated Black Sphere_remix_01jqq7y1z4etsbhfnqwtmb3pyp.png" id="2_3ivuk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x13nq"]
+radius = 314.078
+
+[node name="Node2D" type="Area2D"]
+scale = Vector2(0.03, 0.03)
+collision_mask = 6
+script = ExtResource("1_fgwpy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3ivuk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-57, 12)
+shape = SubResource("CircleShape2D_x13nq")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
