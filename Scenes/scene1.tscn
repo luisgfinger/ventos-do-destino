@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://jxngo7uyba2u"]
+[gd_scene load_steps=19 format=3 uid="uid://jxngo7uyba2u"]
 
 [ext_resource type="Texture2D" uid="uid://bi5sqag4l1pon" path="res://Assets/Images/island.png" id="1_f8783"]
 [ext_resource type="PackedScene" uid="uid://cghihrfegux3t" path="res://Scenes/playerScene.tscn" id="1_ip8br"]
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_rkpnx"]
 [ext_resource type="PackedScene" uid="uid://c5v5blmy0umo8" path="res://Scenes/merchant.tscn" id="3_ynl44"]
 [ext_resource type="Script" path="res://Scripts/gold_manager.gd" id="4_vr73s"]
 [ext_resource type="Script" path="res://Scripts/cannon_manager.gd" id="5_nmepo"]
@@ -10,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dxt63tcwxgtgk" path="res://Assets/Images/cannonNoBackground.png" id="7_uo0jj"]
 [ext_resource type="PackedScene" uid="uid://c8djxo6tv6l4v" path="res://Scenes/pirate.tscn" id="9_qredj"]
 [ext_resource type="PackedScene" uid="uid://dxs5se3w2h2fa" path="res://Scenes/enemyProjectile.tscn" id="10_6s3c3"]
+[ext_resource type="PackedScene" uid="uid://c7oefdle20l2f" path="res://Scenes/crosshair.tscn" id="12_b51sh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x4x4d"]
 texture = ExtResource("1_f8783")
@@ -8362,6 +8364,7 @@ Label/colors/font_color = Color(1, 1, 1, 1)
 Label/font_sizes/font_size = 32
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_rkpnx")
 
 [node name="Ocean" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_cfk5s")
@@ -8423,3 +8426,5 @@ position = Vector2(630, 334)
 position = Vector2(460, 153)
 projectile_scene = ExtResource("10_6s3c3")
 player_path = NodePath("../Player")
+
+[node name="CrossHair" parent="." instance=ExtResource("12_b51sh")]

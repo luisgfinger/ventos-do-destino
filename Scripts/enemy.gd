@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 @export var speed: float = 100.0
-@export var max_health: int = 50
+@export var max_health: int = 100
 @export var projectile_scene: PackedScene
-@export var shoot_cooldown: float = 3.0
+@export var shoot_cooldown: float = 1.0
 @export var number_of_cannons: int = 1
 @export var follow_distance: float = 300.0
 @export var player_path: NodePath

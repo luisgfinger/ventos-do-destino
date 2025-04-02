@@ -33,25 +33,20 @@ func _ready():
 	health_bar.set_health(current_health)
 
 	cannon_manager = get_tree().get_root().get_node_or_null("/root/Main/CannonManager")
-	
+
 func _process(delta):
 	time_since_last_shot += delta
 
-	var direction = Vector2.ZERO
+	# Direção de movimento com suporte a diagonais
+	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
-	if Input.is_action_just_pressed("attack") and time_since_last_shot >= shoot_cooldown:
-		await shoot()
+	# Disparo com clique do mouse
+	if Input.is_action_just_pressed("mouse_left_click") and time_since_last_shot >= shoot_cooldown:
+		var mouse_pos = get_global_mouse_position()
+		await shoot(mouse_pos)
 		time_since_last_shot = 0.0
 
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_down"):
-		direction.y += 1
-	if Input.is_action_pressed("move_up"):
-		direction.y -= 1
-
+	# Movimento e animação
 	if direction.length() > 0:
 		direction = direction.normalized()
 		velocity = direction * speed
@@ -64,7 +59,6 @@ func _process(delta):
 
 func update_animation(direction: Vector2):
 	hide_all_trails()
-
 	animated_sprite.speed_scale = 1.0
 	last_direction = direction
 
@@ -136,11 +130,11 @@ func die():
 	print("Player morreu!")
 	get_tree().quit()
 
-func shoot() -> void:
+func shoot(target_position: Vector2) -> void:
 	if not projectile_scene:
 		return
 
-	var base_direction = last_direction.normalized()
+	var direction = (target_position - global_position).normalized()
 	var canhoes = 1
 
 	if cannon_manager and "cannon" in cannon_manager:
@@ -149,7 +143,7 @@ func shoot() -> void:
 	for i in range(canhoes):
 		var projectile = projectile_scene.instantiate()
 		projectile.global_position = global_position
-		projectile.direction = base_direction
+		projectile.direction = direction
 		get_tree().current_scene.add_child(projectile)
 
 		if i < canhoes - 1:
