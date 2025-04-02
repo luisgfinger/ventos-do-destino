@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://jxngo7uyba2u"]
+[gd_scene load_steps=17 format=3 uid="uid://jxngo7uyba2u"]
 
 [ext_resource type="Texture2D" uid="uid://bi5sqag4l1pon" path="res://Assets/Images/island.png" id="1_f8783"]
 [ext_resource type="PackedScene" uid="uid://cghihrfegux3t" path="res://Scenes/playerScene.tscn" id="1_ip8br"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dxusyde31p4yy" path="res://Scenes/goldPickup.tscn" id="5_vlqqp"]
 [ext_resource type="Texture2D" uid="uid://clildyrs37iud" path="res://Assets/Images/Gold.png" id="6_sibns"]
 [ext_resource type="Texture2D" uid="uid://dxt63tcwxgtgk" path="res://Assets/Images/cannonNoBackground.png" id="7_uo0jj"]
+[ext_resource type="PackedScene" uid="uid://c8djxo6tv6l4v" path="res://Scenes/pirate.tscn" id="9_qredj"]
+[ext_resource type="PackedScene" uid="uid://dxs5se3w2h2fa" path="res://Scenes/enemyProjectile.tscn" id="10_6s3c3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x4x4d"]
 texture = ExtResource("1_f8783")
@@ -8416,3 +8418,8 @@ text = "x1"
 
 [node name="Area2D" parent="." instance=ExtResource("5_vlqqp")]
 position = Vector2(630, 334)
+
+[node name="Pirate" parent="." instance=ExtResource("9_qredj")]
+position = Vector2(460, 153)
+projectile_scene = ExtResource("10_6s3c3")
+player_path = NodePath("../Player")

@@ -13,5 +13,3 @@ func _on_comprar():
 	if gold_manager.gold >= 300:
 		gold_manager.remove_gold(300)
 		cannon_manager.add_cannon(1)
-	else:
-		print("Gold insuficiente!")

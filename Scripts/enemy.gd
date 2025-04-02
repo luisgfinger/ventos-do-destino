@@ -1,13 +1,16 @@
 extends CharacterBody2D
 
 @export var speed: float = 100.0
-@export var max_health: int = 100
+@export var max_health: int = 50
 @export var projectile_scene: PackedScene
-@export var shoot_cooldown: float = 1.0
+@export var shoot_cooldown: float = 3.0
+@export var number_of_cannons: int = 1
+@export var follow_distance: float = 300.0
+@export var player_path: NodePath
 
 var current_health: int = max_health
 var time_since_last_shot: float = 0.0
-var cannon_manager: Node = null
+var player: Node2D = null
 
 @onready var animated_sprite = $Sail
 @onready var animated_leftTrail = $waterLeftAnim
@@ -32,30 +35,29 @@ func _ready():
 	health_bar.max_health = max_health
 	health_bar.set_health(current_health)
 
-	cannon_manager = get_tree().get_root().get_node_or_null("/root/Main/CannonManager")
-	
+	if player_path != NodePath():
+		player = get_node(player_path)
+		
 func _process(delta):
 	time_since_last_shot += delta
-
 	var direction = Vector2.ZERO
 
-	if Input.is_action_just_pressed("attack") and time_since_last_shot >= shoot_cooldown:
-		await shoot()
-		time_since_last_shot = 0.0
+	if player:
+		var to_player = player.global_position - global_position
+		var distance = to_player.length()
+		var to_player_normalized = to_player.normalized()
 
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_down"):
-		direction.y += 1
-	if Input.is_action_pressed("move_up"):
-		direction.y -= 1
+		update_animation(to_player_normalized)
+
+		if time_since_last_shot >= shoot_cooldown:
+			await shoot(to_player_normalized)
+			time_since_last_shot = 0.0
+
+		if distance > follow_distance:
+			direction = to_player_normalized
 
 	if direction.length() > 0:
-		direction = direction.normalized()
 		velocity = direction * speed
-		update_animation(direction)
 	else:
 		velocity = Vector2.ZERO
 		continue_trail_idle()
@@ -64,7 +66,6 @@ func _process(delta):
 
 func update_animation(direction: Vector2):
 	hide_all_trails()
-
 	animated_sprite.speed_scale = 1.0
 	last_direction = direction
 
@@ -78,7 +79,6 @@ func update_animation(direction: Vector2):
 		else:
 			animated_sprite.play("sailDown")
 			last_trail = animated_downTrail
-
 	elif direction.y < 0:
 		if direction.x > 0:
 			animated_sprite.play("sailUpRight")
@@ -89,7 +89,6 @@ func update_animation(direction: Vector2):
 		else:
 			animated_sprite.play("sailUp")
 			last_trail = animated_upTrail
-
 	else:
 		if direction.x > 0:
 			animated_sprite.play("sailRight")
@@ -133,26 +132,19 @@ func take_damage(amount: int):
 		die()
 
 func die():
-	print("Player morreu!")
-	get_tree().quit()
+	queue_free()
 
-func shoot() -> void:
+func shoot(base_direction: Vector2) -> void:
 	if not projectile_scene:
 		return
 
-	var base_direction = last_direction.normalized()
-	var canhoes = 1
-
-	if cannon_manager and "cannon" in cannon_manager:
-		canhoes = cannon_manager.cannon
-
-	for i in range(canhoes):
+	for i in range(number_of_cannons):
 		var projectile = projectile_scene.instantiate()
 		projectile.global_position = global_position
 		projectile.direction = base_direction
 		get_tree().current_scene.add_child(projectile)
 
-		if i < canhoes - 1:
+		if i < number_of_cannons - 1:
 			await get_tree().create_timer(0.1).timeout
 
 	if cooldown_ui:

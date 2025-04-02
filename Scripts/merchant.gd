@@ -14,7 +14,6 @@ func _ready():
 	player = get_parent().get_node_or_null("Player")
 	sprite.play("shopIcon")
 
-	# Inicializa a barra de vida
 	health_bar.max_health = max_health
 	health_bar.set_health(current_health)
 
