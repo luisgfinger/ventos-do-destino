@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3 uid="uid://b582igex7ikft"]
+
+[ext_resource type="Texture2D" uid="uid://c375kryc356a2" path="res://Assets/Caracters/Tripulante.png" id="1_d83jb"]
+[ext_resource type="Script" path="res://Scripts/lost_man.gd" id="1_utuut"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdr4r"]
+atlas = ExtResource("1_d83jb")
+region = Rect2(0, 0, 378, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovobq"]
+atlas = ExtResource("1_d83jb")
+region = Rect2(378, 0, 378, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv7dl"]
+atlas = ExtResource("1_d83jb")
+region = Rect2(756, 0, 378, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxlyb"]
+atlas = ExtResource("1_d83jb")
+region = Rect2(1134, 0, 378, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6ubu"]
+atlas = ExtResource("1_d83jb")
+region = Rect2(0, 512, 378, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pwlj"]
+atlas = ExtResource("1_d83jb")
+region = Rect2(378, 512, 378, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_use2f"]
+atlas = ExtResource("1_d83jb")
+region = Rect2(756, 512, 378, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6dat"]
+atlas = ExtResource("1_d83jb")
+region = Rect2(1134, 512, 378, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w40rv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdr4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovobq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv7dl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxlyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6ubu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pwlj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_use2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6dat")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_chom2"]
+radius = 190.263
+
+[node name="LostMan" type="Area2D"]
+position = Vector2(579, 140)
+scale = Vector2(0.1, 0.1)
+script = ExtResource("1_utuut")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w40rv")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-10, 80)
+shape = SubResource("CircleShape2D_chom2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

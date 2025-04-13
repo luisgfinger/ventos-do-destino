@@ -4,6 +4,9 @@ extends Area2D
 
 func _on_body_entered(body):
 	if body.name == "Player":
+		print("Player encontrado")
 		var gold_manager = get_node("/root/Main/GoldManager")
 		gold_manager.add_gold(gold_amount)
 		queue_free()
+	else:
+		print("player nao encontrado")

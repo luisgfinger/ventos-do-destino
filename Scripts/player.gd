@@ -8,6 +8,7 @@ extends CharacterBody2D
 var current_health: int = max_health
 var time_since_last_shot: float = 0.0
 var cannon_manager: Node = null
+var crew_manager: Node = null
 
 @onready var animated_sprite = $Sail
 @onready var animated_leftTrail = $waterLeftAnim
@@ -26,27 +27,25 @@ var last_direction: Vector2 = Vector2.DOWN
 var last_trail: Node = null
 
 func _ready():
-	last_trail = animated_rightTrail
-	animated_sprite.play("sailRight")
+	last_trail = animated_downRightTrail
+	animated_sprite.play("sailDownRight")
 	continue_trail_idle()
 	health_bar.max_health = max_health
 	health_bar.set_health(current_health)
 
 	cannon_manager = get_tree().get_root().get_node_or_null("/root/Main/CannonManager")
+	crew_manager = get_tree().get_root().get_node_or_null("/root/Main/CrewManager")
 
 func _process(delta):
 	time_since_last_shot += delta
 
-	# Direção de movimento com suporte a diagonais
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
-	# Disparo com clique do mouse
 	if Input.is_action_just_pressed("mouse_left_click") and time_since_last_shot >= shoot_cooldown:
 		var mouse_pos = get_global_mouse_position()
 		await shoot(mouse_pos)
 		time_since_last_shot = 0.0
 
-	# Movimento e animação
 	if direction.length() > 0:
 		direction = direction.normalized()
 		velocity = direction * speed
@@ -135,18 +134,30 @@ func shoot(target_position: Vector2) -> void:
 		return
 
 	var direction = (target_position - global_position).normalized()
-	var canhoes = 1
+	var number_of_cannons = 1
+	var number_of_crew = 1  # começa com 1 por padrão
 
 	if cannon_manager and "cannon" in cannon_manager:
-		canhoes = cannon_manager.cannon
+		number_of_cannons = cannon_manager.cannon
 
-	for i in range(canhoes):
+	if crew_manager and "crew" in crew_manager:
+		number_of_crew = crew_manager.crew
+
+	# Só dispara o número de canhões que tem tripulantes suficientes para operar
+	var cannons_to_fire = min(number_of_cannons, number_of_crew)
+
+	# Se não houver nenhum tripulante, não atira
+	if cannons_to_fire <= 0:
+		print("Sem tripulantes suficientes para disparar.")
+		return
+
+	for i in range(cannons_to_fire):
 		var projectile = projectile_scene.instantiate()
 		projectile.global_position = global_position
 		projectile.direction = direction
 		get_tree().current_scene.add_child(projectile)
 
-		if i < canhoes - 1:
+		if i < cannons_to_fire - 1:
 			await get_tree().create_timer(0.1).timeout
 
 	if cooldown_ui:

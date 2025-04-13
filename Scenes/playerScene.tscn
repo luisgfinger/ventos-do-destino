@@ -725,7 +725,7 @@ animation = &"waterUpRight"
 texture_filter = 1
 scale = Vector2(1.23438, 1.23438)
 sprite_frames = SubResource("SpriteFrames_ds5oj")
-animation = &"sailUpRight"
+animation = &"sailDownRight"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_388nk")

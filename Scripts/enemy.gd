@@ -1,16 +1,18 @@
 extends CharacterBody2D
 
-@export var speed: float = 100.0
-@export var max_health: int = 100
-@export var projectile_scene: PackedScene
-@export var shoot_cooldown: float = 1.0
-@export var number_of_cannons: int = 1
-@export var follow_distance: float = 300.0
-@export var player_path: NodePath
+signal died
+
+var speed: float = 80.0
+var max_health: int = 100
+var projectile_scene: PackedScene = preload("res://Scenes/enemyProjectile.tscn")
+var shoot_cooldown: float = 1.0
+var number_of_cannons: int = 1
+var follow_distance: float = 300.0
+
+@onready var player: Node2D = get_node_or_null("/root/Main/Player")
 
 var current_health: int = max_health
 var time_since_last_shot: float = 0.0
-var player: Node2D = null
 
 @onready var animated_sprite = $Sail
 @onready var animated_leftTrail = $waterLeftAnim
@@ -35,9 +37,6 @@ func _ready():
 	health_bar.max_health = max_health
 	health_bar.set_health(current_health)
 
-	if player_path != NodePath():
-		player = get_node(player_path)
-		
 func _process(delta):
 	time_since_last_shot += delta
 	var direction = Vector2.ZERO
@@ -132,6 +131,7 @@ func take_damage(amount: int):
 		die()
 
 func die():
+	emit_signal("died")
 	queue_free()
 
 func shoot(base_direction: Vector2) -> void:

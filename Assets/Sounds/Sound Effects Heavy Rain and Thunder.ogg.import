@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://e7afjyxs4f22"
+path="res://.godot/imported/Sound Effects Heavy Rain and Thunder.ogg-d43f38ee733025c152ff0d8206661ca4.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Sound Effects Heavy Rain and Thunder.ogg"
+dest_files=["res://.godot/imported/Sound Effects Heavy Rain and Thunder.ogg-d43f38ee733025c152ff0d8206661ca4.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
