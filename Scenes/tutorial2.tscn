@@ -46,9 +46,9 @@ texture = ExtResource("3_ye11s")
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 198.0
+offset_left = 187.0
 offset_top = 84.0
-offset_right = 408.0
+offset_right = 397.0
 offset_bottom = 160.0
 theme = SubResource("Theme_4km3o")
 text = "Quanto mais canhões 
@@ -67,9 +67,9 @@ texture = ExtResource("4_s5q7o")
 
 [node name="Label2" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 174.0
+offset_left = 198.0
 offset_top = 190.0
-offset_right = 416.0
+offset_right = 365.0
 offset_bottom = 290.0
 theme = SubResource("Theme_4km3o")
 text = "Mas cada canhão 

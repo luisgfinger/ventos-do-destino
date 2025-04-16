@@ -1,12 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0er41aap1jit"]
+[gd_scene load_steps=2 format=3 uid="uid://c0er41aap1jit"]
 
 [ext_resource type="Script" path="res://Scripts/healthbar.gd" id="1_k45m4"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt1ga"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52f2n"]
-bg_color = Color(0, 1, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -19,7 +13,5 @@ script = ExtResource("1_k45m4")
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 8.0
-theme_override_styles/background = SubResource("StyleBoxFlat_rt1ga")
-theme_override_styles/fill = SubResource("StyleBoxFlat_52f2n")
 value = 100.0
 show_percentage = false

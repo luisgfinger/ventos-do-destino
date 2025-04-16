@@ -1,12 +1,16 @@
 extends CharacterBody2D
 
-@export var speed: float = 100.0
-@export var max_health: int = 100
+@export var speed: float = 500.0
+@export var max_health: float = 100.0
 @export var projectile_scene: PackedScene
-@export var shoot_cooldown: float = 1.0
+@export var shoot_cooldown: float = 0
 
-var current_health: int = max_health
+var current_health: float = max_health
 var time_since_last_shot: float = 0.0
+var tempo_desde_acao_hostil: float = 0.0
+var tempo_para_curar: float = 5.0
+var taxa_regeneracao: int = 5
+
 var cannon_manager: Node = null
 var crew_manager: Node = null
 
@@ -37,7 +41,12 @@ func _ready():
 	crew_manager = get_tree().get_root().get_node_or_null("/root/Main/CrewManager")
 
 func _process(delta):
+	
 	time_since_last_shot += delta
+	tempo_desde_acao_hostil += delta
+
+	if tempo_desde_acao_hostil >= tempo_para_curar and current_health < max_health:
+		curar(delta)
 
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
@@ -45,6 +54,7 @@ func _process(delta):
 		var mouse_pos = get_global_mouse_position()
 		await shoot(mouse_pos)
 		time_since_last_shot = 0.0
+		tempo_desde_acao_hostil = 0.0
 
 	if direction.length() > 0:
 		direction = direction.normalized()
@@ -118,6 +128,7 @@ func hide_all_trails():
 	animated_downLeftTrail.visible = false
 
 func take_damage(amount: int):
+	tempo_desde_acao_hostil = 0.0
 	current_health -= amount
 	current_health = clamp(current_health, 0, max_health)
 	health_bar.set_health(current_health)
@@ -133,9 +144,11 @@ func shoot(target_position: Vector2) -> void:
 	if not projectile_scene:
 		return
 
+	tempo_desde_acao_hostil = 0.0
+
 	var direction = (target_position - global_position).normalized()
 	var number_of_cannons = 1
-	var number_of_crew = 1  # começa com 1 por padrão
+	var number_of_crew = 1  
 
 	if cannon_manager and "cannon" in cannon_manager:
 		number_of_cannons = cannon_manager.cannon
@@ -143,10 +156,8 @@ func shoot(target_position: Vector2) -> void:
 	if crew_manager and "crew" in crew_manager:
 		number_of_crew = crew_manager.crew
 
-	# Só dispara o número de canhões que tem tripulantes suficientes para operar
 	var cannons_to_fire = min(number_of_cannons, number_of_crew)
 
-	# Se não houver nenhum tripulante, não atira
 	if cannons_to_fire <= 0:
 		print("Sem tripulantes suficientes para disparar.")
 		return
@@ -162,3 +173,8 @@ func shoot(target_position: Vector2) -> void:
 
 	if cooldown_ui:
 		cooldown_ui.start(shoot_cooldown)
+
+func curar(delta: float):
+	var cura = taxa_regeneracao * delta
+	current_health = clamp(current_health + cura, 0, max_health)
+	health_bar.set_health(current_health)

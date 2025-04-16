@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c574vk2g6tke6"]
+
+[ext_resource type="AudioStream" uid="uid://c6e2q2yryddco" path="res://Assets/Sounds/Pirate Attack_ _ D&D_TTRPG Battle_Combat_Fight Music _ 1 Hour [c4-S9N1ecOo].mp3" id="1_0wcd8"]
+[ext_resource type="Script" path="res://Scripts/bg_music.gd" id="1_jbasj"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_jbasj")
+
+[node name="Player" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_0wcd8")

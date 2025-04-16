@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbdi6t23ropxa"]
+
+[ext_resource type="Script" path="res://Scripts/bg_music.gd" id="1_b2ywo"]
+[ext_resource type="AudioStream" uid="uid://dnhm4o3wfdfvl" path="res://Assets/Sounds/Pirate Village Ambience _ Pirate Music with Ocean Waves, Creaky Ship, Seagulls & Pirate Sounds [-vV64Cck8Dk].ogg" id="2_f1w6s"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_b2ywo")
+
+[node name="Player" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("2_f1w6s")
+autoplay = true

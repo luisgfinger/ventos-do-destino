@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://brl02bp88soh1"]
+
+[ext_resource type="Script" path="res://Scripts/fase_1.gd" id="1_5kubk"]
+[ext_resource type="Script" path="res://Scripts/map.gd" id="2_4n8kb"]
+[ext_resource type="Texture2D" uid="uid://660fvs5ix1t8" path="res://Assets/Images/map.png" id="2_deqoy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4b50l"]
+radius = 385.005
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xx00a"]
+radius = 28.2312
+
+[node name="Fase1" type="Area2D"]
+position = Vector2(1593, 85)
+collision_layer = 16
+script = ExtResource("1_5kubk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(18, -500)
+shape = SubResource("CircleShape2D_4b50l")
+
+[node name="Map" type="Area2D" parent="."]
+position = Vector2(-203, -250)
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("2_4n8kb")
+
+[node name="Sprite2D" type="Sprite2D" parent="Map"]
+position = Vector2(2, -9.53674e-07)
+scale = Vector2(0.106933, 0.106933)
+texture = ExtResource("2_deqoy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map"]
+shape = SubResource("CircleShape2D_xx00a")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Map" to="Map" method="_on_body_entered"]

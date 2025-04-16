@@ -30,6 +30,10 @@ var time_since_last_shot: float = 0.0
 var last_direction: Vector2 = Vector2.DOWN
 var last_trail: Node = null
 
+var pode_atacar := false
+var formacao_index := 0
+var formacao_centro: Node2D = null
+
 func _ready():
 	last_trail = animated_rightTrail
 	animated_sprite.play("sailRight")
@@ -42,18 +46,25 @@ func _process(delta):
 	var direction = Vector2.ZERO
 
 	if player:
-		var to_player = player.global_position - global_position
+		var target_position = player.global_position
+
+		if formacao_centro and pode_atacar:
+			var offset = Vector2(formacao_index * 200, 0)
+			target_position += offset.rotated((global_position - player.global_position).angle())
+
+		var to_player = target_position - global_position
 		var distance = to_player.length()
 		var to_player_normalized = to_player.normalized()
 
 		update_animation(to_player_normalized)
 
-		if time_since_last_shot >= shoot_cooldown:
-			await shoot(to_player_normalized)
-			time_since_last_shot = 0.0
+		if pode_atacar:
+			if time_since_last_shot >= shoot_cooldown:
+				await shoot(to_player_normalized)
+				time_since_last_shot = 0.0
 
-		if distance > follow_distance:
-			direction = to_player_normalized
+			if distance > follow_distance:
+				direction = to_player_normalized
 
 	if direction.length() > 0:
 		velocity = direction * speed

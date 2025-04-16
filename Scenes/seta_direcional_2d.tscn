@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://buo3glq4xkdrl"]
+
+[ext_resource type="Script" path="res://Scripts/seta_direcional_2d.gd" id="1_ghsqo"]
+[ext_resource type="Texture2D" uid="uid://bi8e30sde7awn" path="res://Assets/Images/arrow.png" id="2_fvk31"]
+
+[node name="SetaDirecional2D" type="Node2D"]
+rotation = -1.5708
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_ghsqo")
+
+[node name="Seta" type="Sprite2D" parent="."]
+position = Vector2(7.62939e-06, -4.54747e-13)
+scale = Vector2(0.630465, 1)
+texture = ExtResource("2_fvk31")

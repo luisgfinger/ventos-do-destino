@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dnhm4o3wfdfvl"
+path="res://.godot/imported/Pirate Village Ambience _ Pirate Music with Ocean Waves, Creaky Ship, Seagulls & Pirate Sounds [-vV64Cck8Dk].ogg-0abd1ee40c52d2ff8a258f21213f9053.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Pirate Village Ambience _ Pirate Music with Ocean Waves, Creaky Ship, Seagulls & Pirate Sounds [-vV64Cck8Dk].ogg"
+dest_files=["res://.godot/imported/Pirate Village Ambience _ Pirate Music with Ocean Waves, Creaky Ship, Seagulls & Pirate Sounds [-vV64Cck8Dk].ogg-0abd1ee40c52d2ff8a258f21213f9053.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

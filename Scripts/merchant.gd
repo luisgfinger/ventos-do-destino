@@ -24,7 +24,14 @@ func _process(delta):
 		if Input.is_action_just_pressed("interact") and not get_tree().get_root().has_node("Loja"):
 			var loja = loja_scene.instantiate()
 			loja.name = "Loja"
-			get_tree().get_root().add_child(loja)
+			
+			var ui_node = get_tree().get_root().find_child("UI", true, false)
+			
+			if ui_node:
+				ui_node.add_child(loja)
+			else:
+				push_warning("UI node não encontrado. Adicionando ao próprio Merchant.")
+				add_child(loja) 
 	else:
 		if sprite.animation != "shopIcon":
 			sprite.play("shopIcon")

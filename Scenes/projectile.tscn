@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlwhnq0l74sb1"]
+[gd_scene load_steps=5 format=3 uid="uid://dlwhnq0l74sb1"]
 
 [ext_resource type="Script" path="res://Scripts/ball.gd" id="1_fgwpy"]
 [ext_resource type="Texture2D" uid="uid://4fmu2hpc5xgs" path="res://Assets/Images/20250331_2017_Pixelated Black Sphere_remix_01jqq7y1z4etsbhfnqwtmb3pyp.png" id="2_3ivuk"]
+[ext_resource type="AudioStream" uid="uid://j16t3qlcnd0j" path="res://Assets/Sounds/CannonShot.ogg" id="3_bdych"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x13nq"]
 radius = 314.078
@@ -19,6 +20,11 @@ texture = ExtResource("2_3ivuk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-57, 12)
 shape = SubResource("CircleShape2D_x13nq")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bdych")
+volume_db = -15.0
+autoplay = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

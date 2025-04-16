@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Sound Effects Heavy Rain and Thunder.ogg-d43f
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

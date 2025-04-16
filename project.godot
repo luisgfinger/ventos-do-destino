@@ -14,6 +14,11 @@ config/name="Ventos do Destino"
 run/main_scene="res://Scenes/title_screen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 
+[autoload]
+
+BgSong="*res://Scenes/BgSong.tscn"
+BattleSong="*res://Scenes/BattleSong.tscn"
+
 [display]
 
 window/stretch/mode="viewport"
