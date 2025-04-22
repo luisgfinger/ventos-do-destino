@@ -22,10 +22,8 @@ func spawnar_piratas(player: Node2D):
 		pirate.global_position = centro + offset
 
 		pirate.pode_atacar = false
-		pirate.formacao_index = i - 1
-		pirate.formacao_centro = player
+		pirate.player = player  
 
-		# Conectamos o sinal died e passamos o pirata como argumento
 		pirate.connect("died", Callable(self, "_on_pirate_died").bind(pirate))
 
 		add_child(pirate)

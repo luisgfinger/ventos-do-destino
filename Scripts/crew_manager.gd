@@ -1,6 +1,6 @@
 extends Node
 
-@export var crew: int = 1
+var crew:= GameData.crew
 
 func add_crew(amount: int):
 	crew += amount
@@ -14,7 +14,8 @@ func remove_crew(amount: int):
 func update_ui():
 	var label = get_node_or_null("/root/Main/UI/CrewLabel")
 	if label:
-		label.text = "%d" % crew
+		GameData.crew = crew
+		label.text = "%d" % GameData.crew
 
 func _ready():
 	update_ui()

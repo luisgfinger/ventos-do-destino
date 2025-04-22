@@ -1,18 +1,15 @@
 extends CharacterBody2D
 
-@export var speed: float = 500.0
+@export var speed: float = 300.0
 @export var max_health: float = 100.0
 @export var projectile_scene: PackedScene
-@export var shoot_cooldown: float = 0
+@export var shoot_cooldown: float = 1.0
 
 var current_health: float = max_health
 var time_since_last_shot: float = 0.0
 var tempo_desde_acao_hostil: float = 0.0
 var tempo_para_curar: float = 5.0
 var taxa_regeneracao: int = 5
-
-var cannon_manager: Node = null
-var crew_manager: Node = null
 
 @onready var animated_sprite = $Sail
 @onready var animated_leftTrail = $waterLeftAnim
@@ -36,9 +33,6 @@ func _ready():
 	continue_trail_idle()
 	health_bar.max_health = max_health
 	health_bar.set_health(current_health)
-
-	cannon_manager = get_tree().get_root().get_node_or_null("/root/Main/CannonManager")
-	crew_manager = get_tree().get_root().get_node_or_null("/root/Main/CrewManager")
 
 func _process(delta):
 	
@@ -147,14 +141,9 @@ func shoot(target_position: Vector2) -> void:
 	tempo_desde_acao_hostil = 0.0
 
 	var direction = (target_position - global_position).normalized()
-	var number_of_cannons = 1
-	var number_of_crew = 1  
-
-	if cannon_manager and "cannon" in cannon_manager:
-		number_of_cannons = cannon_manager.cannon
-
-	if crew_manager and "crew" in crew_manager:
-		number_of_crew = crew_manager.crew
+	
+	var number_of_cannons = GameData.cannon
+	var number_of_crew = GameData.crew
 
 	var cannons_to_fire = min(number_of_cannons, number_of_crew)
 

@@ -1,27 +1,49 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8sqop0de8kru"]
+[gd_scene load_steps=7 format=3 uid="uid://bjryjmnnitlyj"]
 
-[ext_resource type="Script" path="res://Scripts/title_screen.gd" id="1_mfuvb"]
-[ext_resource type="VideoStream" path="res://Assets/Videos/ventos_do_destino_chuva_realista.ogv" id="2_2exf7"]
-[ext_resource type="Theme" uid="uid://pfuiaftiso8f" path="res://Themes/buttonTheme.tres" id="2_wy4ew"]
-[ext_resource type="AudioStream" uid="uid://e7afjyxs4f22" path="res://Assets/Sounds/Sound Effects Heavy Rain and Thunder.ogg" id="4_i7wgr"]
-[ext_resource type="AudioStream" uid="uid://dgi4sh31b0fc7" path="res://Assets/Sounds/Thunder Sound Effect ｜ No Copyright.ogg" id="5_f5me8"]
+[ext_resource type="VideoStream" path="res://Assets/Videos/ventos_do_destino_chuva_realista.ogv" id="2_toirx"]
+[ext_resource type="Theme" uid="uid://pfuiaftiso8f" path="res://Themes/buttonTheme.tres" id="3_s5o8j"]
+[ext_resource type="AudioStream" uid="uid://e7afjyxs4f22" path="res://Assets/Sounds/Sound Effects Heavy Rain and Thunder.ogg" id="4_1gdxe"]
+[ext_resource type="AudioStream" uid="uid://dgi4sh31b0fc7" path="res://Assets/Sounds/Thunder Sound Effect ｜ No Copyright.ogg" id="5_5f3fg"]
+
+[sub_resource type="GDScript" id="GDScript_buys0"]
+script/source = "extends Control
+
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	get_tree().paused = true
+	
+func _on_continue_button_pressed() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	get_tree().paused = false
+	queue_free()
+
+func _on_new_game_button_pressed() -> void:
+	var loading := preload(\"res://Scenes/loading.tscn\").instantiate()
+	loading.next_scene_path = \"res://Scenes/intro.tscn\"
+	get_tree().root.add_child(loading)
+	get_tree().current_scene.queue_free()
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iwag8"]
 
-[node name="TitleScreen" type="Control"]
+[node name="PauseMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_mfuvb")
+script = SubResource("GDScript_buys0")
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
-stream = ExtResource("2_2exf7")
+stream = ExtResource("2_toirx")
 autoplay = true
 expand = true
 loop = true
@@ -56,8 +78,8 @@ size_flags_horizontal = 6
 [node name="continue_button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("2_wy4ew")
-text = "CARREGAR JOGO"
+theme = ExtResource("3_s5o8j")
+text = "CONTINUAR"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -73,7 +95,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_iwag8")
 
 [node name="newGame_button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("2_wy4ew")
+theme = ExtResource("3_s5o8j")
 text = "NOVO JOGO"
 
 [node name="HSeparator4" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
@@ -90,15 +112,15 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_iwag8")
 
 [node name="quit_button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("2_wy4ew")
+theme = ExtResource("3_s5o8j")
 text = "SAIR DO JOGO"
 
 [node name="Music1" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_i7wgr")
+stream = ExtResource("4_1gdxe")
 autoplay = true
 
 [node name="Music2" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_f5me8")
+stream = ExtResource("5_5f3fg")
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/continue_button" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/newGame_button" to="." method="_on_new_game_button_pressed"]

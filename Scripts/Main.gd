@@ -27,7 +27,6 @@ var mission7_completed := false
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-
 	tutorial = tutorial_scene.instantiate()
 	$UI.add_child(tutorial)
 	
@@ -55,7 +54,6 @@ func _ready():
 	
 	$UI/Objetivos/Mission6.visible = false
 
-	# Conecta o sinal "coletado" do item Map
 	var map = $Fase1.get_node_or_null("Map")
 	if map:
 		map.connect("coletado", Callable(self, "_on_item_coletado"))
@@ -67,16 +65,22 @@ func _process(delta):
 	if controlPointer == 1:
 		arrow_pointer.visible = true
 		controlPointer = 2
+	var goldLabel = get_node_or_null("UI/GoldLabel")
+	var cannonLabel = get_node_or_null("UI/CannonLabel")
+	var crewLabel = get_node_or_null("UI/CrewLabel")
+	goldLabel.text = "%d" % GameData.gold
+	cannonLabel.text = "%d" % GameData.cannon
+	crewLabel.text = "%d" % GameData.crew
 
 func check_mission_progress():
-	if not mission1_completed and $GoldManager.gold >= 300:
+	if not mission1_completed and GameData.gold >= 300:
 		$UI/Objetivos/Mission1.button_pressed = true
 		$UI/Objetivos/Mission1.disabled = true
 		$MissionArrow/arrowAnimate.stop()
 		$MissionArrow/arrowAnimate.play("arrowAnimation2")
 		mission1_completed = true
 
-	if not mission2_completed and $CannonManager.cannon > 1:
+	if not mission2_completed and GameData.cannon > 1:
 		$UI/Objetivos/Mission2.button_pressed = true
 		$UI/Objetivos/Mission2.disabled = true
 		$MissionArrow/arrowAnimate.stop()
@@ -96,7 +100,7 @@ func check_mission_progress():
 		add_child(lostMan)
 		control = 2
 
-	if mission2_completed and not mission3_completed and $CrewManager.crew >= 2:
+	if mission2_completed and not mission3_completed and GameData.crew >= 2:
 		$UI/Objetivos/Mission3.button_pressed = true
 		$UI/Objetivos/Mission3.disabled = true
 		$MissionArrow/arrowAnimate.stop()
@@ -116,10 +120,12 @@ func check_mission_progress():
 		$UI/Objetivos/Mission5.disabled = true
 		$UI/Objetivos/Mission5.button_pressed = true
 		$Fase1/Map.monitoring = false
+		$MissionArrow/arrowAnimate.stop()
 		$MissionArrow.visible = false
 		arrow_pointer.visible = false
-		controlPointer = 100
 		mission5_completed = true
+		BgSong.pausar_musica()
+		BattleSong.retomar_musica()
 		
 	if mission5_completed and not mission6_completed and control == 4:
 		$UI/Objetivos/Mission6.visible = true
@@ -133,13 +139,19 @@ func check_mission_progress():
 		$UI/Objetivos/MissionAnimate.play("missionsAnimate6")
 		mission6_completed = true
 		$Fase1/Map.monitoring = true
+		$MissionArrow/arrowAnimate.play("arrowAnimation4")
+		arrow_pointer.visible = true
+		BattleSong.pausar_musica()
+		BgSong.retomar_musica()
 
 func _on_item_coletado():
 	if mission6_completed and not mission7_completed:
-		mission7_completed = true
-		$UI/Objetivos/Mission7.button_pressed = true
-		$UI/Objetivos/Mission7.disabled = true
-		arrow_pointer.visible = false
+		GameData.player_position = $Player.global_position
+		var loading := preload("res://Scenes/loading.tscn").instantiate()
+		loading.next_scene_path = "res://Scenes/scene2.tscn"
+		get_tree().root.add_child(loading)
+		get_tree().current_scene.queue_free()
+	
 
 func _on_tutorial2_closed():
 	tutorial3 = tutorial3_scene.instantiate()
@@ -154,6 +166,7 @@ func start_mission4() -> void:
 	$UI/Objetivos/MissionAnimate.play("missionsAnimate3")
 	await get_tree().create_timer(1.0).timeout
 	pirate = pirate_scene.instantiate()
+	pirate.player = $Player
 	add_child(pirate)
 	pirate.pode_atacar = true
 	BgSong.pausar_musica()

@@ -1,6 +1,6 @@
 extends Node
 
-@export var cannon: int = 1
+var cannon:= GameData.cannon
 
 func add_cannon(amount: int):
 	cannon += amount
@@ -14,7 +14,8 @@ func remove_cannon(amount: int):
 func update_ui():
 	var label = get_node_or_null("/root/Main/UI/CannonLabel")
 	if label:
-		label.text = "%d" % cannon
+		GameData.cannon = cannon
+		label.text = "%d" % GameData.cannon
 
 func _ready():
 	update_ui()

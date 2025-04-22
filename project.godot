@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 BgSong="*res://Scenes/BgSong.tscn"
 BattleSong="*res://Scenes/BattleSong.tscn"
+GameData="*res://Scripts/gameData.gd"
 
 [display]
 

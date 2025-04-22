@@ -1,12 +1,15 @@
 extends CharacterBody2D
 
 signal died
+signal live
+signal attack
 
-var speed: float = 80.0
-var max_health: int = 100
-var projectile_scene: PackedScene = preload("res://Scenes/enemyProjectile.tscn")
-var shoot_cooldown: float = 2.0
-var number_of_cannons: int = 1
+var option_scene: PackedScene = preload("res://Scenes/boss1Option.tscn")
+var speed: float = 70.0
+var max_health: int = 200.0
+var projectile_scene: PackedScene = preload("res://Scenes/boss1Projectile.tscn")
+var shoot_cooldown: float = 3.5
+var number_of_cannons: int = 3
 var follow_distance: float = 300.0
 
 @export var player: Node2D
@@ -14,6 +17,10 @@ var follow_distance: float = 300.0
 
 var current_health: int = max_health
 var time_since_last_shot: float = 0.0
+var is_shooting: bool = false 
+
+var formacao_index := 0
+var formacao_centro: Node2D = null
 
 @onready var animated_sprite = $Sail
 @onready var animated_leftTrail = $waterLeftAnim
@@ -41,38 +48,84 @@ func _ready():
 func _process(delta):
 	time_since_last_shot += delta
 	var direction = Vector2.ZERO
-	
+
 	if player:
-		var to_player = player.global_position - global_position
+		var target_position = player.global_position
+
+		if formacao_centro and pode_atacar:
+			var offset = Vector2(formacao_index * 200, 0)
+			target_position += offset.rotated((global_position - player.global_position).angle())
+
+		var to_player = target_position - global_position
 		var distance = to_player.length()
 		var to_player_normalized = to_player.normalized()
 
 		update_animation(to_player_normalized)
 
-		if pode_atacar:
+		if pode_atacar and not is_shooting:
 			if time_since_last_shot >= shoot_cooldown:
-				await shoot(to_player_normalized)
+				shoot(to_player_normalized)
 				time_since_last_shot = 0.0
 
 			if distance > follow_distance:
 				direction = to_player_normalized
-
-			for other in get_tree().get_nodes_in_group("inimigos"):
-				if other != self and other is CharacterBody2D:
-					var dist = global_position.distance_to(other.global_position)
-					var min_dist = 400.0
-					if dist < min_dist and dist > 0:
-						var repulsion = (global_position - other.global_position).normalized()
-						direction += repulsion * ((min_dist - dist) / min_dist)
-
+		if distance <= 200 and not pode_atacar:
+			give_option()
+		else:
+			$baloon.stop()
+			$baloon.visible = false
+			
+		if current_health < max_health and not pode_atacar:
+			pode_atacar = true
+			emit_signal("attack")
+		
 	if direction.length() > 0:
-		direction = direction.normalized()
 		velocity = direction * speed
 	else:
 		velocity = Vector2.ZERO
 		continue_trail_idle()
 
 	move_and_slide()
+
+func shoot(base_direction: Vector2) -> void:
+	if not projectile_scene:
+		return
+
+	is_shooting = true
+
+	var lateral = Vector2(-base_direction.y, base_direction.x)
+	var spacing = 40.0 
+
+	for i in range(number_of_cannons):
+		var projectile = projectile_scene.instantiate()
+
+		var offset_index = i - (number_of_cannons - 1) / 2.0
+		var offset = lateral * offset_index * spacing
+
+		projectile.global_position = global_position + offset
+		projectile.direction = base_direction
+		get_tree().current_scene.add_child(projectile)
+
+		if i < number_of_cannons - 1:
+			await get_tree().create_timer(0.1).timeout
+
+	if cooldown_ui:
+		cooldown_ui.start(shoot_cooldown)
+
+	is_shooting = false
+
+
+func take_damage(amount: int):
+	current_health -= amount
+	current_health = clamp(current_health, 0, max_health)
+	health_bar.set_health(current_health)
+
+	if current_health <= 0:
+		die()
+
+func die():
+	emit_signal("died")
+	queue_free()
 
 func update_animation(direction: Vector2):
 	hide_all_trails()
@@ -132,31 +185,30 @@ func hide_all_trails():
 	animated_upLeftTrail.visible = false
 	animated_downRightTrail.visible = false
 	animated_downLeftTrail.visible = false
-
-func take_damage(amount: int):
-	current_health -= amount
-	current_health = clamp(current_health, 0, max_health)
-	health_bar.set_health(current_health)
-
-	if current_health <= 0:
-		die()
-
-func die():
-	emit_signal("died")
+	
+func give_option():
+	$baloon.visible = true
+	$baloon.play("pressE")
+	if Input.is_action_just_pressed("interact") and not get_tree().get_root().has_node("Option"):
+		var option = option_scene.instantiate()
+		option.name = "Option"
+			
+		var ui_node = get_tree().get_root().find_child("UI", true, false)
+			
+		if ui_node:
+			ui_node.add_child(option)
+		else:
+			add_child(option) 
+			
+		option.pay.connect(_on_option_pay)
+		option.fight.connect(_on_option_fight)
+		
+func _on_option_pay():
+	pode_atacar = false
+	emit_signal("live")
 	queue_free()
+func _on_option_fight():
+	pode_atacar = true
+	emit_signal("attack")
 
-func shoot(base_direction: Vector2) -> void:
-	if not projectile_scene:
-		return
-
-	for i in range(number_of_cannons):
-		var projectile = projectile_scene.instantiate()
-		projectile.global_position = global_position
-		projectile.direction = base_direction
-		get_tree().current_scene.add_child(projectile)
-
-		if i < number_of_cannons - 1:
-			await get_tree().create_timer(0.1).timeout
-
-	if cooldown_ui:
-		cooldown_ui.start(shoot_cooldown)
+	

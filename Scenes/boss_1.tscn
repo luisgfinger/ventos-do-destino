@@ -1,80 +1,82 @@
-[gd_scene load_steps=41 format=3 uid="uid://c8djxo6tv6l4v"]
+[gd_scene load_steps=44 format=3 uid="uid://cmm0j56s68c4q"]
 
-[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_rrsiv"]
-[ext_resource type="Texture2D" uid="uid://d0p1d1nkvx7aj" path="res://Assets/Boats/waterLeft_recolored.png" id="2_aaa3m"]
-[ext_resource type="Texture2D" uid="uid://be1w6r6oktkvg" path="res://Assets/Caracters/navio pirata.png" id="4_v2ti3"]
-[ext_resource type="PackedScene" uid="uid://c0er41aap1jit" path="res://Scenes/health.tscn" id="6_olv7v"]
-[ext_resource type="PackedScene" uid="uid://bx8j31oc2wn3t" path="res://Scenes/cooldown.tscn" id="6_xbprn"]
+[ext_resource type="Script" path="res://Scripts/boss_1.gd" id="1_2apfw"]
+[ext_resource type="Texture2D" uid="uid://d0p1d1nkvx7aj" path="res://Assets/Boats/waterLeft_recolored.png" id="1_r4x5o"]
+[ext_resource type="Texture2D" uid="uid://daidwgtf0ldq4" path="res://Assets/Caracters/navio espanhol.png" id="2_cyb3a"]
+[ext_resource type="Texture2D" uid="uid://be1w6r6oktkvg" path="res://Assets/Caracters/navio pirata.png" id="3_ulkqc"]
+[ext_resource type="PackedScene" uid="uid://c0er41aap1jit" path="res://Scenes/health.tscn" id="4_7ey4x"]
+[ext_resource type="PackedScene" uid="uid://bx8j31oc2wn3t" path="res://Scenes/cooldown.tscn" id="5_k3nvu"]
+[ext_resource type="Texture2D" uid="uid://ymuymuwopklf" path="res://Assets/Images/Baloons/ChatGPT Image 26_03_2025, 20_10_30.png" id="7_02gyt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4us7c"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rm3gy"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xd3r4"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(64, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_br2va"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(128, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y0adp"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(192, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d4ak5"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(256, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g8ovr"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(0, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yhon5"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(64, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2m70v"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(128, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hnns5"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(192, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pvcr8"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(256, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ydfsf"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(0, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7srd"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(64, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2oyys"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(128, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fo3qs"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(192, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ty02a"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(256, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f4dep"]
-atlas = ExtResource("2_aaa3m")
+atlas = ExtResource("1_r4x5o")
 region = Rect2(0, 256, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_crlt5"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_yrelk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -133,7 +135,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_3646d"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_e1w83"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -192,7 +194,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_0agi8"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ksmx6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -251,7 +253,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_k1vm5"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_clylq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -310,7 +312,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_4rmmo"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_s6cc4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -369,7 +371,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_tyk2c"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_uhedq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -428,7 +430,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_p22l6"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ayi0g"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -487,7 +489,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_q2h4f"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ikes8"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -546,43 +548,43 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rtat5"]
-atlas = ExtResource("4_v2ti3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckwtc"]
+atlas = ExtResource("2_cyb3a")
 region = Rect2(96, 0, 96, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e8ff2"]
-atlas = ExtResource("4_v2ti3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_btsi8"]
+atlas = ExtResource("2_cyb3a")
 region = Rect2(0, 0, 96, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kd4nl"]
-atlas = ExtResource("4_v2ti3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mvsm"]
+atlas = ExtResource("2_cyb3a")
 region = Rect2(192, 0, 96, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wcsaq"]
-atlas = ExtResource("4_v2ti3")
+atlas = ExtResource("3_ulkqc")
 region = Rect2(288, 64, 96, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oystl"]
-atlas = ExtResource("4_v2ti3")
+atlas = ExtResource("3_ulkqc")
 region = Rect2(288, 0, 96, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gqhm0"]
-atlas = ExtResource("4_v2ti3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3o1y"]
+atlas = ExtResource("2_cyb3a")
 region = Rect2(96, 64, 96, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_etqrp"]
-atlas = ExtResource("4_v2ti3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xhn8"]
+atlas = ExtResource("2_cyb3a")
 region = Rect2(192, 64, 96, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n5sah"]
-atlas = ExtResource("4_v2ti3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fn0b3"]
+atlas = ExtResource("2_cyb3a")
 region = Rect2(0, 64, 96, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ds5oj"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_s6ijl"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rtat5")
+"texture": SubResource("AtlasTexture_ckwtc")
 }],
 "loop": true,
 "name": &"sailDown",
@@ -590,7 +592,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e8ff2")
+"texture": SubResource("AtlasTexture_btsi8")
 }],
 "loop": true,
 "name": &"sailDownLeft",
@@ -598,7 +600,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kd4nl")
+"texture": SubResource("AtlasTexture_8mvsm")
 }],
 "loop": true,
 "name": &"sailDownRight",
@@ -622,7 +624,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gqhm0")
+"texture": SubResource("AtlasTexture_b3o1y")
 }],
 "loop": true,
 "name": &"sailUp",
@@ -630,7 +632,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_etqrp")
+"texture": SubResource("AtlasTexture_8xhn8")
 }],
 "loop": true,
 "name": &"sailUpLeft",
@@ -638,48 +640,54 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n5sah")
+"texture": SubResource("AtlasTexture_fn0b3")
 }],
 "loop": true,
 "name": &"sailUpRight",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_388nk"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjhhu"]
 size = Vector2(58, 26)
 
-[node name="Pirate" type="CharacterBody2D"]
-texture_filter = 1
-position = Vector2(1117, 35)
-scale = Vector2(1.3, 1.3)
+[sub_resource type="SpriteFrames" id="SpriteFrames_r0al3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_02gyt")
+}],
+"loop": true,
+"name": &"pressE",
+"speed": 5.0
+}]
+
+[node name="Boss1" type="CharacterBody2D"]
+position = Vector2(1622, -1452)
 collision_layer = 32
 collision_mask = 47
-up_direction = Vector2(1, 0)
-script = ExtResource("1_rrsiv")
-pode_atacar = true
+script = ExtResource("1_2apfw")
 
 [node name="waterLeftAnim" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(21.5384, 4.61539)
 rotation = -3.14159
 scale = Vector2(2.35337, 1.13231)
-sprite_frames = SubResource("SpriteFrames_crlt5")
+sprite_frames = SubResource("SpriteFrames_yrelk")
 animation = &"waterLeft"
 
 [node name="waterRightAnim" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(-23.8462, 7.69231)
 scale = Vector2(2.353, 1.132)
-sprite_frames = SubResource("SpriteFrames_3646d")
+sprite_frames = SubResource("SpriteFrames_e1w83")
 animation = &"waterRight"
-frame_progress = 0.356634
 
 [node name="waterDownAnim" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(-1.53845, -31.5385)
 rotation = 1.5708
 scale = Vector2(2.353, 1.60199)
-sprite_frames = SubResource("SpriteFrames_0agi8")
+sprite_frames = SubResource("SpriteFrames_ksmx6")
 animation = &"waterDown"
 
 [node name="waterUpAnim" type="AnimatedSprite2D" parent="."]
@@ -687,7 +695,7 @@ visible = false
 position = Vector2(1.53845, 34.6154)
 rotation = -1.5708
 scale = Vector2(2.353, 1.602)
-sprite_frames = SubResource("SpriteFrames_k1vm5")
+sprite_frames = SubResource("SpriteFrames_clylq")
 animation = &"waterUp"
 
 [node name="waterDownLeftAnim" type="AnimatedSprite2D" parent="."]
@@ -695,7 +703,7 @@ visible = false
 position = Vector2(23.8462, -6.92309)
 rotation = 2.64417
 scale = Vector2(2.353, 1.18551)
-sprite_frames = SubResource("SpriteFrames_4rmmo")
+sprite_frames = SubResource("SpriteFrames_s6cc4")
 animation = &"waterDownLeft"
 
 [node name="waterDownRightAnim" type="AnimatedSprite2D" parent="."]
@@ -703,7 +711,7 @@ visible = false
 position = Vector2(-23.8462, -10.7692)
 rotation = 0.610865
 scale = Vector2(2.40043, 1.40099)
-sprite_frames = SubResource("SpriteFrames_tyk2c")
+sprite_frames = SubResource("SpriteFrames_uhedq")
 animation = &"waterDownRight"
 
 [node name="waterUpLeftAnim" type="AnimatedSprite2D" parent="."]
@@ -711,7 +719,7 @@ visible = false
 position = Vector2(20, 26.9231)
 rotation = 3.83972
 scale = Vector2(2.353, 1.132)
-sprite_frames = SubResource("SpriteFrames_p22l6")
+sprite_frames = SubResource("SpriteFrames_ayi0g")
 animation = &"waterUpLeft"
 
 [node name="waterUpRightAnim" type="AnimatedSprite2D" parent="."]
@@ -719,26 +727,32 @@ visible = false
 position = Vector2(-20, 31.5385)
 rotation = -0.698132
 scale = Vector2(2.353, 1.132)
-sprite_frames = SubResource("SpriteFrames_q2h4f")
+sprite_frames = SubResource("SpriteFrames_ikes8")
 animation = &"waterUpRight"
 
 [node name="Sail" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(1.23438, 1.23438)
-sprite_frames = SubResource("SpriteFrames_ds5oj")
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_s6ijl")
 animation = &"sailDownLeft"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_388nk")
+shape = SubResource("RectangleShape2D_rjhhu")
 
-[node name="HealthBar" parent="." instance=ExtResource("6_olv7v")]
+[node name="HealthBar" parent="." instance=ExtResource("4_7ey4x")]
 offset_left = -26.1538
 offset_top = -54.6154
 offset_right = 23.8462
 offset_bottom = -46.6154
 
-[node name="CooldownIndicator" parent="." instance=ExtResource("6_xbprn")]
+[node name="CooldownIndicator" parent="." instance=ExtResource("5_k3nvu")]
 offset_left = -10.7692
 offset_top = 23.8462
 offset_right = 14.2308
 offset_bottom = 31.8462
+
+[node name="baloon" type="AnimatedSprite2D" parent="."]
+position = Vector2(32, -83)
+scale = Vector2(0.0625, 0.0625)
+sprite_frames = SubResource("SpriteFrames_r0al3")
+animation = &"pressE"

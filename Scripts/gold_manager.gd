@@ -1,6 +1,6 @@
 extends Node
 
-@export var gold: int = 0
+var gold := GameData.gold
 
 func add_gold(amount: int):
 	gold += amount
@@ -14,7 +14,8 @@ func remove_gold(amount: int):
 func update_ui():
 	var label = get_node_or_null("/root/Main/UI/GoldLabel")
 	if label:
-		label.text = "%d" % gold
+		GameData.gold = gold
+		label.text = "%d" % GameData.gold
 
 func _ready():
 	update_ui()
