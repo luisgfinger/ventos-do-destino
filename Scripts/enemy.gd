@@ -1,6 +1,10 @@
 extends CharacterBody2D
 
 signal died
+signal tomou_dano
+
+var fugir := false
+var fugindo := false
 
 var speed: float = 80.0
 var max_health: int = 100
@@ -37,42 +41,48 @@ func _ready():
 	continue_trail_idle()
 	health_bar.max_health = max_health
 	health_bar.set_health(current_health)
+	
+	call_deferred("_conectar_com_inimigos")
 
 func _process(delta):
-	time_since_last_shot += delta
-	var direction = Vector2.ZERO
-	
-	if player:
-		var to_player = player.global_position - global_position
-		var distance = to_player.length()
-		var to_player_normalized = to_player.normalized()
+	if not fugir:
+		time_since_last_shot += delta
+		var direction = Vector2.ZERO
+		
+		if player:
+			var to_player = player.global_position - global_position
+			var distance = to_player.length()
+			var to_player_normalized = to_player.normalized()
+			update_animation(to_player_normalized)
 
-		update_animation(to_player_normalized)
+			if pode_atacar:
+				if time_since_last_shot >= shoot_cooldown:
+					await shoot(to_player_normalized)
+					time_since_last_shot = 0.0
 
-		if pode_atacar:
-			if time_since_last_shot >= shoot_cooldown:
-				await shoot(to_player_normalized)
-				time_since_last_shot = 0.0
+				if distance > follow_distance:
+					direction = to_player_normalized
 
-			if distance > follow_distance:
-				direction = to_player_normalized
+				for other in get_tree().get_nodes_in_group("inimigos"):
+					if other != self and other is CharacterBody2D:
+						var dist = global_position.distance_to(other.global_position)
+						var min_dist = 400.0
+						if dist < min_dist and dist > 0:
+							var repulsion = (global_position - other.global_position).normalized()
+							direction += repulsion * ((min_dist - dist) / min_dist)
 
-			for other in get_tree().get_nodes_in_group("inimigos"):
-				if other != self and other is CharacterBody2D:
-					var dist = global_position.distance_to(other.global_position)
-					var min_dist = 400.0
-					if dist < min_dist and dist > 0:
-						var repulsion = (global_position - other.global_position).normalized()
-						direction += repulsion * ((min_dist - dist) / min_dist)
+		if direction.length() > 0:
+			direction = direction.normalized()
+			velocity = direction * speed
+		else:
+			velocity = Vector2.ZERO
+			continue_trail_idle()
 
-	if direction.length() > 0:
-		direction = direction.normalized()
-		velocity = direction * speed
-	else:
-		velocity = Vector2.ZERO
-		continue_trail_idle()
-
-	move_and_slide()
+		move_and_slide()
+	elif fugir:
+		if not fugindo:
+			live()
+			fugindo = true
 
 func update_animation(direction: Vector2):
 	hide_all_trails()
@@ -137,6 +147,8 @@ func take_damage(amount: int):
 	current_health -= amount
 	current_health = clamp(current_health, 0, max_health)
 	health_bar.set_health(current_health)
+	pode_atacar = true
+	emit_signal("tomou_dano")
 
 	if current_health <= 0:
 		die()
@@ -160,3 +172,32 @@ func shoot(base_direction: Vector2) -> void:
 
 	if cooldown_ui:
 		cooldown_ui.start(shoot_cooldown)
+		
+func live():
+	pode_atacar = false
+	animated_sprite.play("sailDownLeft")
+	last_trail = animated_downLeftTrail
+	
+	if has_node("CollisionShape2D"):
+		$CollisionShape2D.disabled = true
+	
+	var direcao_saida := Vector2(-1, 1).normalized()
+	var velocidade_saida := 80.0
+
+	set_process(true)
+
+	var tempo := 0.0
+	while tempo < 10.0:
+		position += direcao_saida * velocidade_saida * get_process_delta_time()
+		await get_tree().process_frame
+		tempo += get_process_delta_time()
+	queue_free()
+	
+func _conectar_com_inimigos():
+	for other in get_tree().get_nodes_in_group("inimigos"):
+		if other != self and other.has_signal("tomou_dano"):
+			other.tomou_dano.connect(_on_aliado_tomou_dano, CONNECT_DEFERRED)
+	
+func _on_aliado_tomou_dano():
+	if not pode_atacar and not fugir:
+		pode_atacar = true

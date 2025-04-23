@@ -1,8 +1,10 @@
 extends Node2D
 
 @onready var crosshair_scene: PackedScene = preload("res://Scenes/crosshair.tscn")
+@onready var arrow_pointer_scene: PackedScene = preload("res://Scenes/seta_direcional_2d.tscn")
 
 var crosshair: Node2D
+var arrow_pointer: Node2D
 
 var mission1_completed := false
 
@@ -21,6 +23,10 @@ func _ready() -> void:
 	
 	#$Player.global_position = GameData.player_position
 	$UI/Objetivos/MissionAnimate.play("missionsAnimate")
+	$MissionArrow/arrowAnimate.play("arrowAnimation1")
+	arrow_pointer = arrow_pointer_scene.instantiate()
+	add_child(arrow_pointer)
+	arrow_pointer.alvo = $MissionArrow
 
 func _process(delta: float) -> void:
 	if crosshair:
@@ -36,22 +42,30 @@ func _process(delta: float) -> void:
 	
 	if not mission1_completed:
 		mission_1()
+	elif mission1_completed:
+		$UI/Objetivos/Mission1.button_pressed = true
+		$UI/Objetivos/Mission1.disabled = true
+		$MissionArrow.visible = false
+		arrow_pointer.visible = false
 
 func mission_1():
 	$Boss1.attack.connect(_on_boss_attack)
 	$Boss1.live.connect(_on_boss_live)
-	mission1_completed = true
-
+	
+	if $Boss1.pode_atacar == true:
+		mission1_completed = true
+	
 func _on_boss_attack():
+	mission1_completed = true
+	await get_tree().create_timer(2.0).timeout
 	$SpainShip.pode_atacar = true
 	$SpainShip2.pode_atacar = true
 	$SpainShip3.pode_atacar = true
 	$SpainShip4.pode_atacar = true
 	
 func _on_boss_live():
-	$SpainShip.queue_free()
-	$SpainShip2.queue_free()
-	$SpainShip3.queue_free()
-	$SpainShip4.queue_free()
-
-	
+	$SpainShip.fugir = true
+	$SpainShip2.fugir = true
+	$SpainShip3.fugir = true
+	$SpainShip4.fugir = true
+	mission1_completed = true
