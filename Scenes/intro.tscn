@@ -8936,7 +8936,7 @@ position = Vector2(96.1306, -56.4244)
 scale = Vector2(0.263266, 0.263266)
 sprite_frames = SubResource("SpriteFrames_52upc")
 animation = &"talk"
-frame_progress = 0.0711275
+frame_progress = 0.0369481
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(360, 464)

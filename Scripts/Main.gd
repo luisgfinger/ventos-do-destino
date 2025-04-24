@@ -146,7 +146,6 @@ func check_mission_progress():
 
 func _on_item_coletado():
 	if mission6_completed and not mission7_completed:
-		GameData.player_position = $Player.global_position
 		var loading := preload("res://Scenes/loading.tscn").instantiate()
 		loading.next_scene_path = "res://Scenes/scene2.tscn"
 		get_tree().root.add_child(loading)

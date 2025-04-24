@@ -3,7 +3,6 @@ extends Node
 var gold: int = 0
 var cannon: int = 1
 var crew: int = 1
-var player_position: Vector2 = Vector2.ZERO
 var last_scene_path: String = ""
 
 const SAVE_PATH := "user://savegame.save"
@@ -39,7 +38,6 @@ func save_game():
 		"gold": gold,
 		"cannon": cannon,
 		"crew": crew,
-		"player_position": { "x": player_position.x, "y": player_position.y },
 		"scene_path": last_scene_path
 	}
 
@@ -62,10 +60,6 @@ func load_game():
 		gold = save_data.get("gold", 0)
 		cannon = save_data.get("cannon", 1)
 		crew = save_data.get("crew", 1)
-
-		var pos_dict = save_data.get("player_position", {"x": 0, "y": 0})
-		player_position = Vector2(pos_dict["x"], pos_dict["y"])
-
 		last_scene_path = save_data.get("scene_path", "")
 
 		print("Jogo carregado!")
