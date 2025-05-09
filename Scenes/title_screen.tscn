@@ -57,7 +57,7 @@ size_flags_horizontal = 6
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("2_wy4ew")
-text = "CARREGAR JOGO"
+text = "CARREGAR "
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

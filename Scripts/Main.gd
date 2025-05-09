@@ -131,6 +131,7 @@ func check_mission_progress():
 		$UI/Objetivos/Mission6.visible = true
 		$UI/Objetivos/MissionAnimate.play("missionsAnimate5")
 		control = 5
+		mostrar_cutscene()
 		
 	if not mission6_completed and $Fase1.todos_mortos:
 		$UI/Objetivos/Mission6.button_pressed = true
@@ -180,3 +181,9 @@ func _on_pirate_died():
 		$UI/Objetivos/Mission4.button_pressed = true
 		$UI/Objetivos/Mission4.disabled = true
 		mission4_completed = true
+		
+func mostrar_cutscene():
+	get_tree().paused = true
+	var cutscene_scene = preload("res://Scenes/cutScene2.tscn")
+	var cutscene = cutscene_scene.instantiate()
+	$UI.add_child(cutscene)

@@ -72,6 +72,10 @@ func _process(delta: float) -> void:
 		arrow_pointer.visible = false
 		$UI/Objetivos/Mission2.disabled = true
 		$UI/Objetivos/Mission2.button_pressed = true
+		var loading := preload("res://Scenes/loading.tscn").instantiate()
+		loading.next_scene_path = "res://Scenes/scene3.tscn"
+		get_tree().root.add_child(loading)
+		get_tree().current_scene.queue_free()
 		
 func mission_1():
 	$Boss1.attack.connect(_on_boss_attack)

@@ -1,7 +1,6 @@
-[gd_scene load_steps=40 format=3 uid="uid://q21amiots8ww"]
+[gd_scene load_steps=39 format=3 uid="uid://q21amiots8ww"]
 
 [ext_resource type="Script" path="res://Scripts/cut_scene_1.gd" id="1_v58no"]
-[ext_resource type="Texture2D" uid="uid://buny2g31auevn" path="res://Assets/Images/pure-black-background-wcs86b1g1awsprv8.jpg" id="1_wehon"]
 [ext_resource type="Texture2D" uid="uid://dg5pwjhymiki6" path="res://Assets/Images/room.jpg" id="2_ueoia"]
 [ext_resource type="Texture2D" uid="uid://cwhkjmsbf80sh" path="res://Assets/Caracters/Swordsman/Idle.png" id="4_ec556"]
 [ext_resource type="Texture2D" uid="uid://cjv7rkupoxkaa" path="res://Assets/Caracters/Swordsman/Walk.png" id="5_luao2"]
@@ -397,11 +396,6 @@ _data = {
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_v58no")
-
-[node name="BG" type="Sprite2D" parent="."]
-position = Vector2(579.374, 329)
-scale = Vector2(0.688522, 0.683333)
-texture = ExtResource("1_wehon")
 
 [node name="Room" type="Sprite2D" parent="."]
 position = Vector2(577, 324)
