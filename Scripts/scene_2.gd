@@ -15,6 +15,7 @@ var total_ships := 5
 var dead_ships := 0
 
 func _ready() -> void:
+	
 	GameData.save_game()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	crosshair = crosshair_scene.instantiate()

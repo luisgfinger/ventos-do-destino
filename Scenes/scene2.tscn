@@ -11189,7 +11189,7 @@ libraries = {
 }
 
 [node name="Player" parent="." instance=ExtResource("6_x884h")]
-position = Vector2(1443, -702)
+position = Vector2(994, -1419)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 limit_left = 7

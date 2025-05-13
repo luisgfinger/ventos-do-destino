@@ -57,6 +57,8 @@ func _ready():
 	var map = $Fase1.get_node_or_null("Map")
 	if map:
 		map.connect("coletado", Callable(self, "_on_item_coletado"))
+		
+	$Cutscenes.visible = false
 
 func _process(delta):
 	if crosshair:
@@ -132,6 +134,10 @@ func check_mission_progress():
 		$UI/Objetivos/MissionAnimate.play("missionsAnimate5")
 		control = 5
 		mostrar_cutscene()
+		await get_tree().create_timer(10.0).timeout
+		$Cutscenes.visible = false
+		get_tree().paused = false
+		
 		
 	if not mission6_completed and $Fase1.todos_mortos:
 		$UI/Objetivos/Mission6.button_pressed = true
@@ -152,7 +158,6 @@ func _on_item_coletado():
 		get_tree().root.add_child(loading)
 		get_tree().current_scene.queue_free()
 	
-
 func _on_tutorial2_closed():
 	tutorial3 = tutorial3_scene.instantiate()
 	tutorial3.z_index = 1
@@ -184,6 +189,9 @@ func _on_pirate_died():
 		
 func mostrar_cutscene():
 	get_tree().paused = true
+	
 	var cutscene_scene = preload("res://Scenes/cutScene2.tscn")
 	var cutscene = cutscene_scene.instantiate()
-	$UI.add_child(cutscene)
+	
+	$Cutscenes.visible = true
+	$Cutscenes/Control.add_child(cutscene)

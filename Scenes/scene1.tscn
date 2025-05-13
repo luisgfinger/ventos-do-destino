@@ -9342,6 +9342,17 @@ libraries = {
 "": SubResource("AnimationLibrary_63u2k")
 }
 
+[node name="Cutscenes" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Control" type="Control" parent="Cutscenes"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Area2D" parent="." instance=ExtResource("5_vlqqp")]
 position = Vector2(628, 369)
 
