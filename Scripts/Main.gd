@@ -26,6 +26,7 @@ var mission6_completed := false
 var mission7_completed := false
 
 func _ready():
+	GameData.clear_save()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	tutorial = tutorial_scene.instantiate()
 	$UI.add_child(tutorial)
@@ -154,7 +155,7 @@ func check_mission_progress():
 func _on_item_coletado():
 	if mission6_completed and not mission7_completed:
 		var loading := preload("res://Scenes/loading.tscn").instantiate()
-		loading.next_scene_path = "res://Scenes/scene2.tscn"
+		loading.next_scene_path = "res://Scenes/cutScene3.tscn"
 		get_tree().root.add_child(loading)
 		get_tree().current_scene.queue_free()
 	

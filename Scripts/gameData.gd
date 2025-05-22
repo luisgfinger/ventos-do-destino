@@ -68,3 +68,10 @@ func load_game():
 			get_tree().change_scene_to_file(last_scene_path)
 	else:
 		print("Erro ao carregar jogo.")
+		
+func clear_save():
+	gold = 0
+	cannon = 1
+	crew = 1
+	last_scene_path = ""
+	save_game()

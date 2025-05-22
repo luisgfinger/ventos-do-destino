@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@export var speed: float = 400.0
-@export var max_health: float = 1000.0
+@export var speed: float = 200.0
+@export var max_health: float = 100.0
 @export var projectile_scene: PackedScene
-@export var shoot_cooldown: float = 0.0
+@export var shoot_cooldown: float = 1.0
 
 var current_health: float = max_health
 var time_since_last_shot: float = 0.0
@@ -131,8 +131,10 @@ func take_damage(amount: int):
 		die()
 
 func die():
-	print("Player morreu!")
-	get_tree().quit()
+	var loading = preload("res://Scenes/loading.tscn").instantiate()
+	loading.next_scene_path = get_tree().current_scene.get_scene_file_path()
+	get_tree().root.add_child(loading)
+	get_tree().current_scene.queue_free()
 
 func shoot(target_position: Vector2) -> void:
 	if not projectile_scene:
@@ -167,3 +169,4 @@ func curar(delta: float):
 	var cura = taxa_regeneracao * delta
 	current_health = clamp(current_health + cura, 0, max_health)
 	health_bar.set_health(current_health)
+	

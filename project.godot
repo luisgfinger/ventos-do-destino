@@ -11,8 +11,9 @@ config_version=5
 [application]
 
 config/name="Ventos do Destino"
-run/main_scene="res://Scenes/title_screen.tscn"
+run/main_scene="res://Scenes/splashScreen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/show_image=false
 
 [autoload]
 

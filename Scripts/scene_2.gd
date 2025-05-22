@@ -99,6 +99,8 @@ func mission2():
 	$Map.coletado.connect(_on_map_colect)
 			
 func _on_boss_attack():
+	BgSong.pausar_musica()
+	BattleSong.retomar_musica()
 	mission1_completed = true
 	$UI/Objetivos/Mission1.button_pressed = true
 	$UI/Objetivos/Mission1.disabled = true
@@ -131,4 +133,6 @@ func _on_map_colect():
 func _on_ship_died():
 	dead_ships += 1
 	if dead_ships == total_ships:
+		BattleSong.pausar_musica()
+		BgSong.retomar_musica()
 		control = 1
