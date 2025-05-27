@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cm54pwgf2k1di"]
+[gd_scene load_steps=15 format=3 uid="uid://cm54pwgf2k1di"]
 
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_khs28"]
 [ext_resource type="Texture2D" uid="uid://bdw8wybwkpgcg" path="res://Assets/Images/storeIsland.png" id="2_wh1vv"]
+[ext_resource type="Script" path="res://Scripts/v_slider.gd" id="3_53d68"]
+[ext_resource type="Texture2D" uid="uid://ddxn3348ws2ti" path="res://Assets/Images/musical-note.png" id="4_225eu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0yq1"]
 bg_color = Color(0.545098, 0.270588, 0.0745098, 1)
@@ -73,6 +75,17 @@ Button/font_sizes/font_size = 20
 Button/styles/hover = SubResource("StyleBoxFlat_q0yq1")
 Button/styles/normal = SubResource("StyleBoxFlat_y84mp")
 Button/styles/pressed = SubResource("StyleBoxFlat_nyaao")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lue21"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6di4r"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_77g4n"]
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_lue21")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_6di4r")
+HSlider/styles/slider = null
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -161,7 +174,28 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_uksv7")
 [node name="quit_button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_ydnr6")
-text = "SAIR "
+text = "MENU"
+
+[node name="VSlider" type="HSlider" parent="."]
+layout_mode = 2
+offset_left = 527.0
+offset_top = 388.0
+offset_right = 647.0
+offset_bottom = 404.0
+theme = SubResource("Theme_77g4n")
+min_value = -80.0
+max_value = 0.0
+value = -10.0
+script = ExtResource("3_53d68")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 491.0
+offset_top = 384.0
+offset_right = 1003.0
+offset_bottom = 896.0
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("4_225eu")
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/continue_button" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/newGame_button" to="." method="_on_new_game_button_pressed"]
