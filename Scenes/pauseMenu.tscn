@@ -1,53 +1,101 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjryjmnnitlyj"]
+[gd_scene load_steps=10 format=3 uid="uid://cm54pwgf2k1di"]
 
-[ext_resource type="VideoStream" path="res://Assets/Videos/ventos_do_destino_chuva_realista.ogv" id="2_toirx"]
-[ext_resource type="Theme" uid="uid://pfuiaftiso8f" path="res://Themes/buttonTheme.tres" id="3_s5o8j"]
-[ext_resource type="AudioStream" uid="uid://e7afjyxs4f22" path="res://Assets/Sounds/Sound Effects Heavy Rain and Thunder.ogg" id="4_1gdxe"]
-[ext_resource type="AudioStream" uid="uid://dgi4sh31b0fc7" path="res://Assets/Sounds/Thunder Sound Effect ｜ No Copyright.ogg" id="5_5f3fg"]
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_khs28"]
+[ext_resource type="Texture2D" uid="uid://bdw8wybwkpgcg" path="res://Assets/Images/storeIsland.png" id="2_wh1vv"]
 
-[sub_resource type="GDScript" id="GDScript_buys0"]
-script/source = "extends Control
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0yq1"]
+bg_color = Color(0.545098, 0.270588, 0.0745098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 30.0
+expand_margin_top = 10.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
 
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	self.process_mode = Node.PROCESS_MODE_ALWAYS
-	get_tree().paused = true
-	
-func _on_continue_button_pressed() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	get_tree().paused = false
-	queue_free()
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y84mp"]
+bg_color = Color(0.294118, 0.231373, 0.164706, 1)
+draw_center = false
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.393085, 0.393086, 0.393085, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 30.0
+expand_margin_top = 10.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
+shadow_size = 10
 
-func _on_new_game_button_pressed() -> void:
-	var loading := preload(\"res://Scenes/loading.tscn\").instantiate()
-	loading.next_scene_path = \"res://Scenes/intro.tscn\"
-	get_tree().root.add_child(loading)
-	get_tree().current_scene.queue_free()
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyaao"]
+bg_color = Color(0.255659, 0.255659, 0.255659, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 30.0
+expand_margin_top = 10.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
 
-func _on_quit_button_pressed() -> void:
-	get_tree().quit()
-"
+[sub_resource type="Theme" id="Theme_r20ww"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 20
+Button/styles/hover = SubResource("StyleBoxFlat_q0yq1")
+Button/styles/normal = SubResource("StyleBoxFlat_y84mp")
+Button/styles/pressed = SubResource("StyleBoxFlat_nyaao")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iwag8"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uksv7"]
+
+[sub_resource type="Theme" id="Theme_iesun"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 20
+Button/styles/hover = SubResource("StyleBoxFlat_q0yq1")
+Button/styles/normal = SubResource("StyleBoxFlat_y84mp")
+Button/styles/pressed = SubResource("StyleBoxFlat_nyaao")
+
+[sub_resource type="Theme" id="Theme_ydnr6"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 20
+Button/styles/hover = SubResource("StyleBoxFlat_q0yq1")
+Button/styles/normal = SubResource("StyleBoxFlat_y84mp")
+Button/styles/pressed = SubResource("StyleBoxFlat_nyaao")
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = SubResource("GDScript_buys0")
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_khs28")
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-stream = ExtResource("2_toirx")
-autoplay = true
-expand = true
-loop = true
-buffering_msec = 498
+offset_left = 415.0
+offset_top = 131.0
+offset_right = 721.0
+offset_bottom = 452.0
+
+[node name="BackGround" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = -101.0
+offset_top = -92.0
+offset_right = 923.0
+offset_bottom = 932.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_wh1vv")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -56,10 +104,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -261.0
-offset_top = -254.0
-offset_right = 163.0
-offset_bottom = 13.0
+offset_left = 340.0
+offset_top = 126.0
+offset_right = 764.0
+offset_bottom = 393.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 150
@@ -78,49 +126,42 @@ size_flags_horizontal = 6
 [node name="continue_button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("3_s5o8j")
+theme = SubResource("Theme_r20ww")
 text = "CONTINUAR"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_iwag8")
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uksv7")
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_iwag8")
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uksv7")
 
 [node name="HSeparator3" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_iwag8")
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uksv7")
 
 [node name="newGame_button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("3_s5o8j")
+theme = SubResource("Theme_iesun")
 text = "NOVO JOGO"
 
 [node name="HSeparator4" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_iwag8")
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uksv7")
 
 [node name="HSeparator5" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_iwag8")
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uksv7")
 
 [node name="HSeparator6" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_iwag8")
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uksv7")
 
 [node name="quit_button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("3_s5o8j")
-text = "SAIR DO JOGO"
-
-[node name="Music1" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_1gdxe")
-autoplay = true
-
-[node name="Music2" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_5f3fg")
+theme = SubResource("Theme_ydnr6")
+text = "SAIR "
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/continue_button" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/newGame_button" to="." method="_on_new_game_button_pressed"]

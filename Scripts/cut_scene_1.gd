@@ -57,4 +57,8 @@ func _ready() -> void:
 	get_tree().current_scene.queue_free()
 	
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("skip"):
+		var loading := preload("res://Scenes/loading.tscn").instantiate()
+		loading.next_scene_path = "res://Scenes/intro.tscn"
+		get_tree().root.add_child(loading)
+		get_tree().current_scene.queue_free()

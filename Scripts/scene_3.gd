@@ -2,9 +2,11 @@ extends Node2D
 
 @onready var crosshair_scene: PackedScene = preload("res://Scenes/crosshair.tscn")
 @onready var arrow_pointer_scene: PackedScene = preload("res://Scenes/seta_direcional_2d.tscn")
+@onready var pauseMenu_scene: PackedScene = preload("res://Scenes/pauseMenu.tscn")
 
 var crosshair: Node2D
 var arrow_pointer: Node2D
+var pauseMenu = Control
 
 func _ready() -> void:
 	GameData.save_game()
@@ -27,5 +29,9 @@ func _ready() -> void:
 	arrow_pointer.alvo = $MissionArrow
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		pauseMenu = pauseMenu_scene.instantiate()
+		$UI.add_child(pauseMenu)
+		
 	if crosshair:
 		crosshair.global_position = get_global_mouse_position()

@@ -7,6 +7,7 @@ extends Node2D
 @onready var tutorial2_scene: PackedScene = preload("res://Scenes/tutorial2.tscn")
 @onready var tutorial3_scene: PackedScene = preload("res://Scenes/tutorial3.tscn")
 @onready var arrow_pointer_scene: PackedScene = preload("res://Scenes/seta_direcional_2d.tscn")
+@onready var pauseMenu_scene: PackedScene = preload("res://Scenes/pauseMenu.tscn")
 
 var arrow_pointer: Node2D
 var crosshair: Node2D
@@ -15,6 +16,7 @@ var lostMan = Node2D
 var tutorial = Node2D
 var tutorial2 = Node2D
 var tutorial3 = Node2D
+var pauseMenu = Control
 var control: int = 1
 var controlPointer = 1
 var mission1_completed := false
@@ -62,6 +64,9 @@ func _ready():
 	$Cutscenes.visible = false
 
 func _process(delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		pauseMenu = pauseMenu_scene.instantiate()
+		$UI.add_child(pauseMenu)
 	if crosshair:
 		crosshair.global_position = get_global_mouse_position()
 	check_mission_progress()
@@ -190,7 +195,6 @@ func _on_pirate_died():
 		
 func mostrar_cutscene():
 	get_tree().paused = true
-	
 	var cutscene_scene = preload("res://Scenes/cutScene2.tscn")
 	var cutscene = cutscene_scene.instantiate()
 	

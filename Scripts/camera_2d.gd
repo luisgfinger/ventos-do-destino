@@ -12,7 +12,7 @@ func _ready():
 		target = get_node(target_path)
 
 	make_current()
-
+	
 func _process(delta):
 	if is_instance_valid(target):
 		global_position = target.global_position
@@ -21,6 +21,12 @@ func _process(delta):
 		$ControlZoom.play("ballons")
 		ship.play("shipSize")
 		$ControlZoom.animation_finished.connect(_on_animation_finished)
+	
+	if Input.is_action_just_pressed("skip"):
+		var loading := preload("res://Scenes/loading.tscn").instantiate()
+		loading.next_scene_path = "res://Scenes/scene1.tscn"
+		get_tree().root.add_child(loading)
+		get_tree().current_scene.queue_free()
 
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name == "ballons":
