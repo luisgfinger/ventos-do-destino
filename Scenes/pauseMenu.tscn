@@ -185,7 +185,7 @@ offset_bottom = 404.0
 theme = SubResource("Theme_77g4n")
 min_value = -80.0
 max_value = 0.0
-value = -10.0
+value = -40.0
 script = ExtResource("3_53d68")
 
 [node name="TextureRect" type="TextureRect" parent="."]

@@ -37,6 +37,12 @@ func _ready() -> void:
 	
 	$Map.monitoring = false
 	$Map.visible = false
+	
+	$UI/Objetivos/Mission1.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$UI/Objetivos/Mission2.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$UI/Objetivos/Mission4.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$UI/Objetivos/Mission5.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$UI/Objetivos/Mission6.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -78,7 +84,7 @@ func _process(delta: float) -> void:
 		$UI/Objetivos/Mission2.disabled = true
 		$UI/Objetivos/Mission2.button_pressed = true
 		var loading := preload("res://Scenes/loading.tscn").instantiate()
-		loading.next_scene_path = "res://Scenes/scene3.tscn"
+		loading.next_scene_path = "res://Scenes/cutScene4.tscn"
 		get_tree().root.add_child(loading)
 		get_tree().current_scene.queue_free()
 		
